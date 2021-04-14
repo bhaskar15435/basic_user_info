@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+    django:
+        build: .
+        container_name: bhaskar_django_container
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes:
+            - .:/usr/src/app/
+        ports:
+            - "8000:8000"
+        environment:
+            - DEBUG=1
+            - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1[::1]
+        depends_on:
+            - redis_bhaskar
+    redis_bhaskar:
+        image: "redis:alpine"
